@@ -1,29 +1,36 @@
 package com.GestionInventario.Model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "inventario")
+@Table(name = "Producto")
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Inventario {
+public class Producto {
 
      @Id
      @GeneratedValue(strategy=GenerationType.IDENTITY)
-     private Integer idProducto;
+     private Long id;
 
      @Column(nullable=false)
-     private String nombreProducto;
+     private String nombre;
 
      @Column(nullable=false)
-     private String descripcion;
+     private double precio;
 
      @Column(nullable=false)
      private Integer cantidad;
+
+
 
 }

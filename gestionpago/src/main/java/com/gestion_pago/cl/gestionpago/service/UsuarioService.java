@@ -1,5 +1,12 @@
 package com.gestion_pago.cl.gestion_pago.service;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.service;
+
+import com.gestion_pago.cl.gestion_pago.model.Usuario;
+import com.gestion_pago.cl.gestion_pago.repository.UsuarioRepository;
+import jakarta.transactional.Transactional;
 
 @service
 @Transactional

@@ -8,11 +8,11 @@
 		<version>3.3.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.GestionDePago.y.ventas</groupId>
-	<artifactId>Gestion-de-pagos</artifactId>
+	<groupId>com.gestion_pago.cl</groupId>
+	<artifactId>gestionpago</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Gestion-de-pagos</name>
-	<description>Demo project for Spring Boot</description>
+	<name>gestionpago</name>
+	<description>GestionDePago</description>
 	<url/>
 	<licenses>
 		<license/>

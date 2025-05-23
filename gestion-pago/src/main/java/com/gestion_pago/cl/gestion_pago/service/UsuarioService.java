@@ -1,7 +1,17 @@
 package com.gestion_pago.cl.gestion_pago.service;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@service
+import com.gestion_pago.cl.gestion_pago.model.Usuario;
+import com.gestion_pago.cl.gestion_pago.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
+
+
+
+
+@Service
 @Transactional
 
 public class UsuarioService{
@@ -12,8 +22,8 @@ public class UsuarioService{
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
     }
-    public Usuario findById(Long id){
-        return usuarioRepository.findById(id).get()
+    public Usuario findById(long id){
+        return usuarioRepository.findById(id).get();
     }
     public Usuario save(Usuario usuario){
         return usuarioRepository.save(usuario);

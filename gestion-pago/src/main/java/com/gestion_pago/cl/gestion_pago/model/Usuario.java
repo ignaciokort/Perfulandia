@@ -1,6 +1,8 @@
 package com.gestion_pago.cl.gestion_pago.model;
 
 
+import java.sql.Date;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

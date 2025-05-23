@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GestionPagoApplication",
+            "request": "launch",
+            "mainClass": "com.gestion_pago.cl.gestion_pago.GestionPagoApplication",
+            "projectName": "gestion-pago"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-AutenticacionApplication<Autenticacion>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

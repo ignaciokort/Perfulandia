@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.gestionpago.cl.gestionpago.model.Usuario;
-import com.gestionpago.cl.gestionpago.service.UsuarioService;
+import com.gestion_pago.cl.gestion_pago.model.Usuario;
+import com.gestion_pago.cl.gestion_pago.service.UsuarioService;
 
 
 
@@ -23,7 +23,7 @@ public class UsuarioController{
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listar(){
-        List <Usuario> usuarios = usuarioService.findAll();
+        List<Usuario> usuarios = usuarioService.findAll();
         if(usuarios.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -32,7 +32,7 @@ public class UsuarioController{
     }
     //meotodode guardar
     @PostMapping
-    public ResponseEntity<Usuario>guardar(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> guardar(@RequestBody Usuario usuario){
        Usuario productoNuevo = usuarioService.save(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(productoNuevo);
     }
@@ -50,11 +50,10 @@ public class UsuarioController{
             return ResponseEntity.notFound().build();
         }
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizar(@PathVariable Integer id, @RequestBody Usuario usuario){
-        try {
-            Usuario usu =  usuarioService.findById(id);
+    public ResponseEntity<Usuario> actualizar(@PathVariable Integer id,@RequestBody Usuario usuario){
+        try{
+            Usuario usu = usuarioService.findById(id);
             usu.setId(id);
             usu.setNro_cuenta(usuario.getNro_cuenta());
             usu.setNombre(usuario.getNombre());
@@ -65,19 +64,20 @@ public class UsuarioController{
 
             usuarioService.save(usu);
             return ResponseEntity.ok(usuario);
-        } catch (Exception e) {
+        } catch(Exception e){
             return ResponseEntity.notFound().build();
         }
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
-        try {
+        try{
             usuarioService.delete(id);
             return ResponseEntity.noContent().build();
-        } catch (Exception e) {
+        }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
-
     }
+
+
+    
 }

@@ -1,5 +1,6 @@
 
-package com.gestionpago.cl.gestionpago.controller;
+
+package com.gestion_pago.cl.gestion_pago.controller;
 
 
 import java.util.List;
@@ -51,9 +52,9 @@ public class UsuarioController{
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Paciente> actualizar(@PathVariable Integer id, @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> actualizar(@PathVariable Integer id, @RequestBody Usuario usuario){
         try {
-            Paciente usu =  usuarioService.findById(id);
+            Usuario usu =  usuarioService.findById(id);
             usu.setId(id);
             usu.setNro_cuenta(usuario.getNro_cuenta());
             usu.setNombre(usuario.getNombre());

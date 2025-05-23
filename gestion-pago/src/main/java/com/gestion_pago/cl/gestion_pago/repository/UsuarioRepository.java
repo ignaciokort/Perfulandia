@@ -1,4 +1,4 @@
-package com.gestion_pago.cl.gestionpago.repository;
+package com.gestion_pago.cl.gestion_pago.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

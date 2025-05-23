@@ -1,10 +1,10 @@
-package com.gestion_pago.cl.gestionpago;
+package com.gestion_pago.cl.gestion_pago;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GestionpagoApplicationTests {
+class GestionPagoApplicationTests {
 
 	@Test
 	void contextLoads() {

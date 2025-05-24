@@ -1,29 +1,23 @@
-package com.autenticacion.perfulandia.Model;
-
-
+package com.autenticacion.cl.autenticacion.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Table(name = "usuario")
+@Table(name = "cliente")
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Usuario {
-    
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuario;
+    private Integer idCliente;
 
     @Column(unique = true, nullable = false)
-    private String correoUsuario;
+    private String correoCliente;
 
     @Column(length = 10, nullable = false)
-    private String contrasenaUsuario;
-
+    private String contrasenaCliente;
 }

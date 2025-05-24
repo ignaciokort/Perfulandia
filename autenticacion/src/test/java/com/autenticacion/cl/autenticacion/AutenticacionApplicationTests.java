@@ -1,4 +1,4 @@
-package com.autenticacion.perfulandia.Autenticacion;
+package com.autenticacion.cl.autenticacion;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

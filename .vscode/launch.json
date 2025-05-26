@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ReporteVentaApplication",
+            "request": "launch",
+            "mainClass": "com.reporteVenta.reporteVenta.ReporteVentaApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "AutenticacionApplication",
             "request": "launch",
             "mainClass": "com.autenticacion.cl.autenticacion.AutenticacionApplication",

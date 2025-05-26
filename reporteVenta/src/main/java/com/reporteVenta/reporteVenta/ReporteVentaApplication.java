@@ -1,13 +1,13 @@
-package com.Feedback.cl.Feedback;
+package com.reporteVenta.reporteVenta;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FeedbackApplication {
+public class ReporteVentaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FeedbackApplication.class, args);
+		SpringApplication.run(ReporteVentaApplication.class, args);
 	}
 
 }

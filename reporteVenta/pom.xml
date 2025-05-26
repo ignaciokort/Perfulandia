@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.11</version>
+		<version>3.3.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.Feedback.cl</groupId>
-	<artifactId>Feedback</artifactId>
+	<groupId>com.reporteVenta</groupId>
+	<artifactId>reporteVenta</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Feedback</name>
-	<description>MicroServicio Feedback</description>
+	<name>reporteVenta</name>
+	<description>gestion de reportes</description>
 	<url/>
 	<licenses>
 		<license/>

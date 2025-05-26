@@ -1,10 +1,10 @@
-package com.Feedback.cl.Feedback;
+package com.reporteVenta.reporteVenta;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FeedbackApplicationTests {
+class ReporteVentaApplicationTests {
 
 	@Test
 	void contextLoads() {

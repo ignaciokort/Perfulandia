@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.GestionInventario.Model.Producto;
@@ -24,6 +25,19 @@ import com.GestionInventario.Service.ProductoService;
 public class ProductoController {
      @Autowired
     private ProductoService productoService;
+    
+
+    @GetMapping("/{productoId}")
+    public ResponseEntity<Producto> obtenerProducto(@PathVariable Long productoId) {
+         Producto producto = new Producto(productoId, "Producto" + productoId, 50, null);
+         return ResponseEntity.ok(producto);
+    }
+    
+    @PostMapping("/actualizar/{productoId}")
+    public ResponseEntity<String> actualizarInventario(@PathVariable Long productoId, 
+                                                       @RequestParam int cantidad) {
+         return ResponseEntity.ok("Stock del producto " + productoId + " actualizado por " + cantidad);
+    }
 
     @GetMapping
     public List<Producto> listarProductos() {

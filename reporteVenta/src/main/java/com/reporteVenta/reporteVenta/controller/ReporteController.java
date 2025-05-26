@@ -1,12 +1,20 @@
 package com.reporteVenta.reporteVenta.controller;
 
-import com.reporteVenta.reporteVenta.model.*;
-import com.reporteVenta.reporteVenta.service.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.reporteVenta.reporteVenta.model.Reporte;
+import com.reporteVenta.reporteVenta.service.ReporteService;
 
 @RestController
 @RequestMapping("/reportes")
@@ -16,6 +24,13 @@ public class ReporteController {
 
     public ReporteController(ReporteService reporteService) {
         this.reporteService = reporteService;
+    }
+
+    @GetMapping("/ventas")
+    public ResponseEntity<Reporte> obtenerReporteVentas() {
+         // Para la demostración se retorna un reporte simulado
+         Reporte reporte = new Reporte(null, "Reporte de Ventas", 10, 1500.0, null);
+         return ResponseEntity.ok(reporte);
     }
 
     @PostMapping

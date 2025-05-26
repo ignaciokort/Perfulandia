@@ -2,6 +2,9 @@ package com.autenticacion.cl.autenticacion.controller;
 
 import com.autenticacion.cl.autenticacion.model.Cliente;
 import com.autenticacion.cl.autenticacion.service.ClienteService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,23 @@ import java.util.Optional;
 public class ClienteController {
 
     private final ClienteService clienteService;
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(HttpSession session,
+                                          @RequestParam String username,
+                                          @RequestParam String password) {
+        // Lógica de validación de credenciales (para demostración, se valida de forma simple)
+        if ("usuario".equals(username) && "clave".equals(password)) {
+            session.setAttribute("usuario", username);
+            return ResponseEntity.ok("Sesión iniciada para " + username);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+    }
+
+    @GetMapping("/validate")
+    public ResponseEntity<Boolean> validate(HttpSession session) {
+        return ResponseEntity.ok(session.getAttribute("usuario") != null);
+    }
 
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;

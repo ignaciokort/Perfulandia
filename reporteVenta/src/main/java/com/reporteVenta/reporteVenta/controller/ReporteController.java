@@ -28,7 +28,6 @@ public class ReporteController {
 
     @GetMapping("/ventas")
     public ResponseEntity<Reporte> obtenerReporteVentas() {
-         // Para la demostración se retorna un reporte simulado
          Reporte reporte = new Reporte(null, "Reporte de Ventas", 10, 1500.0, null);
          return ResponseEntity.ok(reporte);
     }

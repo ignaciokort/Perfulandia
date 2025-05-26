@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GestionInventarioApplication",
+            "request": "launch",
+            "mainClass": "com.GestionInventario.GestionInventarioApplication",
+            "projectName": "Gestion-inventario"
+        },
+        {
+            "type": "java",
             "name": "ReporteVentaApplication",
             "request": "launch",
             "mainClass": "com.reporteVenta.reporteVenta.ReporteVentaApplication",

@@ -5,6 +5,7 @@ import com.autenticacion.cl.autenticacion.service.ClienteService;
 
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

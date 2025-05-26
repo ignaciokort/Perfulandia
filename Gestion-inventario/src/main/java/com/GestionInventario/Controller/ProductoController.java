@@ -1,6 +1,7 @@
 package com.GestionInventario.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,12 @@ public class ProductoController {
     @PostMapping
     public Producto agregarProducto(@RequestBody Producto producto) {
         return productoService.guardarProducto(producto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerProductoPorId(@PathVariable Long id) {
+        Optional<Producto> producto = productoService.obtenerProductoPorId(id);
+        return producto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

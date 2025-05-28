@@ -1,16 +1,20 @@
 package com.autenticacion.cl.autenticacion.controller;
 
-import com.autenticacion.cl.autenticacion.model.Cliente;
-import com.autenticacion.cl.autenticacion.service.ClienteService;
-
-import jakarta.servlet.http.HttpSession;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.autenticacion.cl.autenticacion.model.Cliente;
+import com.autenticacion.cl.autenticacion.service.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -18,26 +22,18 @@ public class ClienteController {
 
     private final ClienteService clienteService;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(HttpSession session,
-                                          @RequestParam String username,
-                                          @RequestParam String password) {
-        // Lógica de validación de credenciales (para demostración, se valida de forma simple)
-        if ("usuario".equals(username) && "clave".equals(password)) {
-            session.setAttribute("usuario", username);
-            return ResponseEntity.ok("Sesión iniciada para " + username);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
-    }
-
-    @GetMapping("/validate")
-    public ResponseEntity<Boolean> validate(HttpSession session) {
-        return ResponseEntity.ok(session.getAttribute("usuario") != null);
-    }
-
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
     }
+
+    @GetMapping("/validar/{correo}")
+    public ResponseEntity<Boolean> validarCliente(@PathVariable String correo) {
+        boolean esValido = clienteService.clienteExiste(correo);
+        return ResponseEntity.ok(esValido);
+    }
+
+
+
 
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {

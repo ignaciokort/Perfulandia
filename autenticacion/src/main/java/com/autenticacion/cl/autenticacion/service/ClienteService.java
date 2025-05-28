@@ -1,21 +1,30 @@
 package com.autenticacion.cl.autenticacion.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.autenticacion.cl.autenticacion.model.Cliente;
+import com.autenticacion.cl.autenticacion.repository.ClienteRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClienteService {
 
+    private final ClienteRepository clienteRepository;
+
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
+
     @PersistenceContext
     private EntityManager entityManager;
 
+    
     @Transactional
     public Cliente crearCliente(Cliente cliente) {
         entityManager.persist(cliente);
@@ -47,5 +56,9 @@ public class ClienteService {
 
     public List<Cliente> listarClientes() {
         return entityManager.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
+    }
+
+    public boolean clienteExiste(String correo) {
+        return clienteRepository.existsByCorreoCliente(correo);
     }
 }

@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.reactive.function.client.WebClient;
 import com.gestion_pago.cl.gestion_pago.model.Usuario;
 import com.gestion_pago.cl.gestion_pago.service.UsuarioService;
 
@@ -33,28 +32,33 @@ public class UsuarioController{
     private UsuarioService usuarioService;
 
     @Autowired
-    private RestTemplate restTemplate;
+private WebClient.Builder webClientBuilder;
 
-    @PostMapping("/procesar")
-    public ResponseEntity<String> procesarPago(@RequestBody Usuario pago, HttpSession session) {
-        // Validar que la sesión esté activa consultando el microservicio de autenticación
-        Boolean isAuth = restTemplate.getForObject("http://localhost:8081/auth/validate", Boolean.class);
-        if (!Boolean.TRUE.equals(isAuth)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado.");
-        }
-        
-        // Llamar al microservicio de inventario para actualizar el stock del producto.
-        // Por ejemplo, reducir la cantidad en 1 tras una compra:
-        String inventarioResponse = restTemplate.postForObject(
-            "http://localhost:8082/inventario/actualizar/" + pago.getProductoId() + "?cantidad=-1",
-            null, 
-            String.class
-        );
-
-        // Aquí se agregaría la lógica real para procesar el pago (transacción, validación, etc.).
-        String respuesta = "Pago procesado para el cliente " + pago.getId() + ". " + inventarioResponse;
-        return ResponseEntity.ok(respuesta);
+@PostMapping("/procesar")
+public ResponseEntity<String> procesarPago(@RequestBody Usuario pago, HttpSession session) {
+    // Validar autenticación con WebClient
+    Boolean isAuth = webClientBuilder.build()
+        .get()
+        .uri("http://localhost:8081/auth/validate")
+        .retrieve()
+        .bodyToMono(Boolean.class)
+        .block();
+    
+    if (!Boolean.TRUE.equals(isAuth)) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado.");
     }
+
+    // Actualizar inventario con WebClient
+    String inventarioResponse = webClientBuilder.build()
+        .post()
+        .uri("http://localhost:8082/inventario/actualizar/" + pago.getProductoId() + "?cantidad=-1")
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+
+    String respuesta = "Pago procesado para el cliente " + pago.getId() + ". " + inventarioResponse;
+    return ResponseEntity.ok(respuesta);
+}
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listar(){
@@ -71,9 +75,6 @@ public class UsuarioController{
        Usuario productoNuevo = usuarioService.save(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(productoNuevo);
     }
-
-
-
 
 
     @GetMapping("/{id}")

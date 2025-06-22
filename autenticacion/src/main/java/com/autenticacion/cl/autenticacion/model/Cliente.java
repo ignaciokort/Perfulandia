@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCliente;
+    private Long idCliente;
 
     @Column(unique = true, nullable = false)
     private String correoCliente;

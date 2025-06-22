@@ -33,6 +33,6 @@ public class DataLoader implements CommandLineRunner {
             usuarioRepository.save(usuario);
         }
 
-        System.out.println("💳 Se cargaron 10 usuarios de pago falsos con IDs válidos de productos.");
+        System.out.println("Se cargaron 10 usuarios de pago falsos con IDs válidos de productos.");
     }
 }

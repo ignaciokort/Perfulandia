@@ -1,19 +1,28 @@
 package com.gestion_pago.cl.gestion_pago.controller;
-import com.gestion_pago.cl.gestion_pago.model.Producto;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.gestion_pago.cl.gestion_pago.model.Producto;
 import com.gestion_pago.cl.gestion_pago.model.Usuario;
 import com.gestion_pago.cl.gestion_pago.service.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 
+@Tag(name="Pagos", description="Operaciones relacionadas con los pagos de los usuarios")
 @RestController
 @RequestMapping("/api/v1/usuario")
 public class UsuarioController {
@@ -26,6 +35,7 @@ public class UsuarioController {
 
     // Procesar pago y actualizar inventario
     @PostMapping("/procesar")
+    @Operation(summary="Procesar pagos", description="Procesa el pago de un usuario por un producto y actualiza el inventario")
     public ResponseEntity<String> procesarPago(@RequestBody Usuario pago, HttpSession session) {
         // Validar autenticación con WebClient
         Boolean isAuth = webClientBuilder.build()
@@ -75,6 +85,7 @@ public class UsuarioController {
 
     // Listar todos los usuarios
     @GetMapping
+    @Operation(summary="Listar usuarios registrados con pago", description="Lista todos los usuarios registrados de pagos")
     public ResponseEntity<List<Usuario>> listar() {
         List<Usuario> usuarios = usuarioService.findAll();
         return usuarios.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(usuarios);
@@ -82,6 +93,7 @@ public class UsuarioController {
 
     // Guardar usuario
     @PostMapping
+    @Operation(summary="Guardar pago", description="Guarda un usuario con su monto")
     public ResponseEntity<Usuario> guardar(@RequestBody Usuario usuario) {
         if (usuario.getMonto() < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -91,6 +103,7 @@ public class UsuarioController {
 
     // Buscar usuario y restar precio del producto
     @GetMapping("/{id}/producto/{productoId}")
+    @Operation(summary="Buscar y restar monto de usuario", description="Busca un usuario por id y resta el precio del producto")
     public ResponseEntity<?> buscarYRestar(@PathVariable Integer id, @PathVariable Long productoId) {
         try {
             Usuario usuario = usuarioService.findById(id);
@@ -123,6 +136,7 @@ public class UsuarioController {
 
     // Actualizar usuario
     @PutMapping("/{id}")
+    @Operation(summary="Actualizar usuario", description="Actualiza un usuario por id")
     public ResponseEntity<Usuario> actualizar(@PathVariable Integer id, @RequestBody Usuario usuario) {
         try {
             Usuario usu = usuarioService.findById(id);
@@ -146,6 +160,7 @@ public class UsuarioController {
 
     // Eliminar usuario
     @DeleteMapping("/{id}")
+    @Operation(summary="Eliminar usuario", description="Elimina un usuario por id")
     public ResponseEntity<?> eliminar(@PathVariable Long id) {
         try {
             usuarioService.delete(id);

@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.GestionInventario.Model.Producto;
 import com.GestionInventario.Service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name="productos", description="Operaciones relacionadas con los productos")
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
@@ -27,6 +31,7 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping("/{productoId}")
+    @Operation(summary="Optener productos", description="Valida si un producto existe")
     public ResponseEntity<?> obtenerProducto(@PathVariable Long productoId) {
         System.out.println("🔍 Buscando producto con ID: " + productoId);
 
@@ -43,6 +48,7 @@ public class ProductoController {
     }
 
     @PostMapping("/actualizar/{productoId}")
+    @Operation(summary="Actualizar productos", description="Actualizar productos por id")
     public ResponseEntity<String> actualizarInventario(@PathVariable Long productoId, 
                                                        @RequestParam int cantidad) {
         if (cantidad <= 0) {
@@ -68,6 +74,7 @@ public class ProductoController {
     }
 
     @GetMapping
+    @Operation(summary="Listar productos", description="Lista productos por id")
     public ResponseEntity<List<Producto>> listarProductos() {
         List<Producto> productos = productoService.obtenerTodos();
         if (productos.isEmpty()) {
@@ -77,6 +84,7 @@ public class ProductoController {
     }
 
     @PostMapping
+    @Operation(summary="Agregar producto", description="Agregar un producto")
     public ResponseEntity<Producto> agregarProducto(@RequestBody Producto producto) {
         if (producto.getNombre() == null || producto.getCantidad() == null || producto.getPrecio() <= 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -85,6 +93,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary="Actualizar producto", description="Actualiza un producto por id")
     public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto producto) {
         if (producto.getNombre() == null || producto.getCantidad() == null || producto.getPrecio() <= 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -93,6 +102,7 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary="Eliminar producto", description="Eliminar un productopor id")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
